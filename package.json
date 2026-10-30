@@ -12,7 +12,8 @@
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*",
-    "recharts": "*"
+    "recharts": "*",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "@types/react": "*",
