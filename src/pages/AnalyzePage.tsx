@@ -32,6 +32,7 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
   const [companyName, setCompanyName] = useState('');
   const [jobUrl, setJobUrl] = useState('');
   const [chatText, setChatText] = useState('');
+  const [offerLetterText, setOfferLetterText] = useState('');
   const [platform, setPlatform] = useState<Platform>('telegram');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +59,7 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
         ? jobPostText
         : activeTab === 'chat'
           ? chatText
-          : uploadedFile?.name ?? '';
+          : offerLetterText;
 
     try {
       const scanResult = await analyzeContent({
@@ -82,6 +83,7 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
     setCompanyName('');
     setJobUrl('');
     setChatText('');
+    setOfferLetterText('');
     setUploadedFile(null);
     setIsLoading(false);
     setError(null);
@@ -92,7 +94,7 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
       ? jobPostText.trim().length > 0
       : activeTab === 'chat'
         ? chatText.trim().length > 0
-        : uploadedFile !== null;
+        : offerLetterText.trim().length > 0;
 
   const tabs: { id: InputTab; label: string }[] = [
     { id: 'job_post', label: 'Job Post' },
@@ -185,17 +187,26 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
       )}
 
       {activeTab === 'offer_letter' && (
-        <div>
+        <div className="space-y-4">
+          {/* Info banner */}
+          <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-3 text-amber-400 text-sm">
+            <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+            <span>
+              <strong>Note:</strong> Our system cannot read image/PDF content directly. Upload the file for your records, then <strong>paste the offer letter text below</strong> for accurate scam detection.
+            </span>
+          </div>
+
+          {/* File upload */}
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            className="w-full border-2 border-dashed border-white/20 rounded-2xl p-12 text-center hover:border-amber-500/40 transition-colors cursor-pointer"
+            className="w-full border-2 border-dashed border-white/20 rounded-2xl p-8 text-center hover:border-amber-500/40 transition-colors cursor-pointer"
           >
             <Upload className="w-10 h-10 text-muted mx-auto mb-4" />
             {uploadedFile ? (
               <div>
                 <div className="text-amber-400 font-medium">{uploadedFile.name}</div>
-                <div className="text-muted text-xs mt-1">File selected — click Analyze to continue</div>
+                <div className="text-muted text-xs mt-1">File selected ✓</div>
               </div>
             ) : (
               <div>
@@ -211,6 +222,20 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
             className="hidden"
             onChange={(e) => setUploadedFile(e.target.files?.[0] ?? null)}
           />
+
+          {/* Manual text input for analysis */}
+          <div>
+            <label className="block text-sm font-medium text-primary mb-1.5">
+              Paste offer letter text here <span className="text-red-400">*</span>
+            </label>
+            <textarea
+              rows={8}
+              className={`${inputClass} resize-none`}
+              placeholder="Copy and paste the text from your offer letter here for analysis…&#10;&#10;Example: Dear Candidate, You have been selected for the position of Data Entry Operator. Please pay ₹2000 registration fee to confirm your joining…"
+              value={offerLetterText}
+              onChange={(e) => setOfferLetterText(e.target.value)}
+            />
+          </div>
         </div>
       )}
 
