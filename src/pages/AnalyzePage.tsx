@@ -99,9 +99,22 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
   };
 
   const handleAnalyze = async () => {
+    setError(null);
+
+    // Guard: offer_letter tab — if file was uploaded but OCR produced no text, ask user to paste manually
+    if (activeTab === 'offer_letter' && extractedText.trim().length === 0) {
+      if (uploadedFile !== null) {
+        setError(
+          'Could not extract text from the image. Please paste the offer letter text manually in the text box below.'
+        );
+        // Show the manual textarea
+        setOcrStatus('error');
+      }
+      return;
+    }
+
     setIsLoading(true);
     setLoadingMsg(0);
-    setError(null);
 
     const text =
       activeTab === 'job_post'
@@ -145,7 +158,7 @@ export function AnalyzeSection({ onViewSafety, onReport }: AnalyzeSectionProps) 
       ? jobPostText.trim().length > 0
       : activeTab === 'chat'
         ? chatText.trim().length > 0
-        : extractedText.trim().length > 0;
+        : extractedText.trim().length > 0 || uploadedFile !== null;
 
   const tabs: { id: InputTab; label: string }[] = [
     { id: 'job_post', label: 'Job Post' },

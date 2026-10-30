@@ -81,15 +81,6 @@ export function ScanResult({ result, onAnalyzeAnother, onViewSafety, onReport }:
 
   return (
     <div className="space-y-6">
-      {/* Demo disclaimer */}
-      <div className="flex items-start gap-2 bg-caution/10 border border-caution/30 rounded-xl px-4 py-3 text-caution text-sm">
-        <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
-        <span>
-          <strong>Demo Data —</strong> These results are simulated for demonstration purposes only
-          and do not represent real AI analysis or actual verification.
-        </span>
-      </div>
-
       {/* Risk classification hero */}
       <div
         className={`flex flex-col sm:flex-row items-center gap-5 p-6 rounded-2xl border ${config.bg} ${config.border}`}
@@ -155,6 +146,28 @@ export function ScanResult({ result, onAnalyzeAnother, onViewSafety, onReport }:
         <h3 className="text-base font-semibold text-primary mb-2">What this means for you</h3>
         <p className="text-sm text-muted leading-relaxed">{result.summary}</p>
       </Card>
+
+      {/* Offer letter contextual messages */}
+      {result.inputType === 'offer_letter' && result.riskLevel === 'SAFE' && (
+        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-4 py-3 text-emerald-400 text-sm flex items-start gap-2">
+          <ShieldCheck className="w-4 h-4 mt-0.5 shrink-0" />
+          <span>
+            <strong>Tip:</strong> No obvious scam patterns found, but always verify the company at{' '}
+            <a href="https://www.mca.gov.in" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-300">mca.gov.in</a>{' '}
+            before accepting any offer and never pay any fee to join.
+          </span>
+        </div>
+      )}
+      {result.inputType === 'offer_letter' && result.riskLevel === 'HIGH_RISK' && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3 text-red-400 text-sm flex items-start gap-2">
+          <ShieldX className="w-4 h-4 mt-0.5 shrink-0" />
+          <span>
+            <strong>Action Required:</strong> Do NOT share any documents or pay any fee. This has multiple fake offer letter patterns. Call the Cyber Crime helpline{' '}
+            <strong>1930</strong> or report at{' '}
+            <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" className="underline hover:text-red-300">cybercrime.gov.in</a>.
+          </span>
+        </div>
+      )}
 
       {/* Company verification */}
       {result.companyVerification && (
