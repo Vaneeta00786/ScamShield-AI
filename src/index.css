@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #111318;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    color: #F8FAFC;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid #F59E0B;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #20232B #111318;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #111318;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #20232B;
+    border-radius: 3px;
+  }
+
+  /* ── PRIMARY BUTTON — hardcoded so it NEVER disappears ── */
+  .btn-primary {
+    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+    color: #111318;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+    transition: all 0.2s ease;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #FBBF24, #FDE68A);
+    box-shadow: 0 6px 28px rgba(245, 158, 11, 0.55);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  /* ── SECONDARY BUTTON ── */
+  .btn-secondary {
+    background: transparent;
+    color: #FBBF24;
+    border: 1.5px solid rgba(245, 158, 11, 0.55);
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: #F59E0B;
+    color: #FDE68A;
+  }
+
+  /* Amber glow utilities */
+  .glow-amber {
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.3);
+  }
+
+  .glow-amber-lg {
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.25), 0 0 80px rgba(245, 158, 11, 0.1);
+  }
+
+  /* Legacy glow aliases — map to amber */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+  }
+
+  /* Subtle dot-grid background */
+  .bg-animated-grid {
+    background-image: radial-gradient(rgba(245, 158, 11, 0.07) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Glass card style */
+  .glass-card {
+    background: rgba(32, 35, 43, 0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(245, 158, 11, 0.16);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+
+  /* Gradient border utility */
+  .gradient-border {
+    position: relative;
+    border-radius: 16px;
+    background:
+      linear-gradient(#20232B, #20232B) padding-box,
+      linear-gradient(135deg, #F59E0B, #FBBF24) border-box;
+    border: 1px solid transparent;
+    padding: 1.5rem;
+  }
+
+  /* Amber gradient utility */
+  .amber-gradient {
+    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+  }
+
+  /* Legacy alias */
+  .emerald-gradient {
+    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+  }
+
+  /* Subtle amber gradient */
+  .amber-gradient-subtle {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.08));
+  }
+
+  /* Glowing amber text */
+  .text-amber-glow {
+    color: #FBBF24;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
+
+  /* Legacy alias */
+  .text-emerald-glow {
+    color: #FBBF24;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.45);
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    border-color: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.1);
+  }
+
+  /* Elevated surface */
+  .surface-elevated {
+    background: #272B35;
+    border: 1px solid rgba(245, 158, 11, 0.1);
+  }
+
+  /* Animate fade in up */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  /* Animate fade in */
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  /* Shimmer amber */
+  .shimmer-amber {
+    background: linear-gradient(
+      90deg,
+      rgba(245, 158, 11, 0) 0%,
+      rgba(245, 158, 11, 0.15) 50%,
+      rgba(245, 158, 11, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-amber 2s infinite;
+  }
+}
+
+/* Keyframes */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(245, 158, 11, 0.3);
+  }
+}
+
+/* Amber pulse for status dots */
+@keyframes amber-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+.animate-amber-pulse {
+  animation: amber-pulse 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes shimmer-amber {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes scan-move {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(140px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
