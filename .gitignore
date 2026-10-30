@@ -33,9 +33,7 @@ backend/.env
 *.bin
 *.safetensors
 
-# ── Dataset (DO NOT commit) ──────────────────────────────────────────────────
-dataset/
-data/
+# ── Dataset (DO NOT commit raw datasets) ────────────────────────────────────
 *.csv
 *.jsonl
 
