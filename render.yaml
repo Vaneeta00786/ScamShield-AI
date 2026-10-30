@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: scamshield-ai-backend
+    name: scamshield-backend
     runtime: node
     rootDir: backend
     buildCommand: npm install && npm run build
